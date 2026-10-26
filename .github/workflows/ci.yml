@@ -1,4 +1,4 @@
-name: Test and ARMv7 build
+name: Test and standalone ARMv7 build
 on:
   push:
   pull_request:
@@ -19,3 +19,6 @@ jobs:
         run: make test
       - name: Build four speaker-side commands
         run: make build
+      - name: Build standalone Android-compatible client
+        run: |
+          python3 scripts/build-android-agent.py --go-root "$(go env GOROOT)" --source client --output dist/lx04-gpt-agent-android

@@ -20,3 +20,9 @@ GPL-3.0-only 脚本：`scripts/da_to_fastboot.py`、`scripts/prepare_adb_boot.py
 相关背景项目：xiaobot 基于 [longbai/xiaobot](https://github.com/longbai/xiaobot) 与 [xiaogpt](https://github.com/yihong0618/xiaogpt) 的工作；MiService 由上游项目转换及适配。本项目不声称这些基础代码是原创。
 
 Magisk 参考 [官方 v30.7 源码](https://github.com/topjohnwu/Magisk/tree/v30.7)，Platform-Tools 从 [Google 官方页面](https://developer.android.com/tools/releases/platform-tools) 获取。发布内容只有源码与文档；暂不提供预编译程序，避免将原机二进制误作通用刷机包。
+
+## 2026-10-26：独立 GPT 分支
+
+本分支继承 Goldloli/xiaoai-deepseek-lx04 的 c0f85e9886fc57f4dc04fbfab844c4a9885cf7f9，新增 Android 前台服务、开机广播、ChatGPT OAuth/Responses、音频时序处理及公开配置工具，默认 Apache-2.0。原上游版权和不同组件许可保留。
+
+构建依赖用户独立获取的 Go（BSD-3-Clause）、JDK、Android SDK/Build Tools 及 PyJWT/cryptography；这些工具和私有签名密钥不随本仓库分发。Go 兼容脚本只在临时 overlay 中关闭不适用于 Android 8 应用环境的 pidfd 优化，不修改设备安全策略。

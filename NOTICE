@@ -24,3 +24,14 @@ THIRD_PARTY.md, CHANGELOG.md and third_party/UPSTREAM.json.
 
 Xiaomi, XiaoAI, DeepSeek and Magisk are names of their respective owners.
 This is an independent community project and is not an official product.
+
+XiaoAI GPT LX04 standalone adaptation
+Copyright 2026 cymx333 and contributors.
+Based on Goldloli/xiaoai-deepseek-lx04 at
+c0f85e9886fc57f4dc04fbfab844c4a9885cf7f9.
+Android foreground-service wrapper, ChatGPT OAuth/Responses integration,
+local speech-gating changes, public configuration tools and documentation
+were added or adapted on 2026-10-26 under Apache License 2.0.
+OpenAI and ChatGPT are names of their respective owners.
+The Go build overlay preserves the Go source's BSD notices and only affects
+the local build; the Go toolchain itself is obtained separately.

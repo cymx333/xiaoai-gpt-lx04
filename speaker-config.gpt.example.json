@@ -1,0 +1,12 @@
+{
+  "hardware": "LX04",
+  "account": "",
+  "password": "",
+  "mi_did": "",
+  "bot": "gpt-6-luna",
+  "openai_key": "",
+  "openai_backend": "",
+  "use_command": true,
+  "stream": false,
+  "verbose": false
+}

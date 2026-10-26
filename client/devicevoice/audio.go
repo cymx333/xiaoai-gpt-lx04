@@ -51,7 +51,11 @@ func setMasterMute(mute bool) error {
 	if mute {
 		v = "1"
 	}
-	_, err := audioCall("7", "i32", v, "i32", "0", "s16", "com.android.shell", "i32", "0")
+	pkg := os.Getenv("XIAOAI_AUDIO_PACKAGE")
+	if pkg == "" {
+		pkg = "com.android.shell"
+	}
+	_, err := audioCall("7", "i32", v, "i32", "0", "s16", pkg, "i32", "0")
 	return err
 }
 
