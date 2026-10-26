@@ -194,9 +194,8 @@ adb -s "$SPEAKER_ADB" shell am start-foreground-service \
 
 源码包含可用于诊断的 `client/cmd/lx04-gptcheck`，但不要在两个进程或两台设备同时使用同一份可续期账号记录。
 
-## 隐私、来源与许可
+## 来源与许可
 
-`.secrets/`、令牌、验证码、日志、签名密钥、APK 和设备报告默认忽略；提交前运行 `python3 scripts/check_repository.py` 并人工检查 `git diff --cached`。忽略规则不会清理已经进入 Git 历史的秘密，泄漏后必须撤销凭据。
 
 上游固定来源：`Goldloli/xiaoai-deepseek-lx04` 的 `c0f85e9886fc57f4dc04fbfab844c4a9885cf7f9`。本分支新增 Android 独立运行、ChatGPT OAuth/Responses 接入及配置工具；保留的旧 Mac/DeepSeek 代码不是默认运行路径。
 
