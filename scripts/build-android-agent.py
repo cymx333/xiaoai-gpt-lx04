@@ -18,5 +18,6 @@ patch=text.replace(needle,needle+'\t// LX04 Android 8 ARMv7: pidfd_open is rejec
 with tempfile.TemporaryDirectory(prefix='lx04-go-compat-') as temp:
  temp=Path(temp);replacement=temp/'pidfd_linux.go';replacement.write_text(patch)
  overlay=temp/'overlay.json';overlay.write_text(json.dumps({'Replace':{str(original):str(replacement)}}))
- env={**os.environ,'CGO_ENABLED':'0','GOOS':'linux','GOARCH':'arm','GOARM':'7','GOTOOLCHAIN':'local'}
+ # Match the overlay's canonical paths even when the caller sets a symlinked GOROOT.
+ env={**os.environ,'GOROOT':str(root),'CGO_ENABLED':'0','GOOS':'linux','GOARCH':'arm','GOARM':'7','GOTOOLCHAIN':'local'}
  subprocess.run([str(root/'bin/go'),'build','-overlay',str(overlay),'-trimpath','-ldflags=-s -w','-o',str(Path(a.output).resolve()),'./cmd/lx04-gpt-agent'],cwd=source,env=env,check=True)

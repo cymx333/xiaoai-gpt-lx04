@@ -96,7 +96,7 @@ def main():
     shell('umask 077; mkdir ' + stage + '; chmod 700 ' + stage)
     try:
         # Stop old companion/standalone services yourself before first installation.
-        adb('install', '-r', str(args.apk.resolve()), timeout=180)
+        adb('install', '--no-streaming', '-r', str(args.apk.resolve()), timeout=180)
         for permission in ('READ_LOGS', 'WRITE_SECURE_SETTINGS'):
             shell('pm grant ' + PACKAGE + ' android.permission.' + permission)
         info = shell('dumpsys package ' + PACKAGE)
