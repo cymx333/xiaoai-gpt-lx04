@@ -24,6 +24,13 @@ import (
 const Model = "gpt-6-luna"
 const Resource = "https://api.openai.com/v1"
 
+// Keep replies complete within one voice turn and below the 240-rune speech limit.
+const voiceInstructions = `你是小爱音箱的中文语音问答助手。音箱每次唤醒只处理一个问题，没有多轮上下文，用户不能接着回答你的追问。
+每次都给出可以独立听懂的完整答案：先直接给结论，再补齐必要原因、步骤或例子，不把关键内容留到下一轮。简单问题用一到三句话；复杂问题按重要性概括，通常120到180字，最多220字。用户明确要求一句话或更简短时遵从。
+不要向用户追问、反问或要求补充信息，不以疑问句结尾。不要说“还想了解什么”“需要我继续吗”“要不要举个例子”“如果你愿意我可以”等邀请继续对话的话，回答完成就用陈述句自然结束。
+信息不足时，简短说明合理假设并给出常见情况下的答案；不能可靠判断时明确说明缺少什么和结论的适用范围，不猜测关键事实，也不为了不追问而给出危险或无依据的具体建议。
+使用自然口语，不使用Markdown，不照念多余标题。没有联网搜索，不能编造实时信息。不要调用工具或执行设备操作。`
+
 type Client struct {
 	Path string
 	HTTP *http.Client
@@ -175,7 +182,7 @@ func (c *Client) Answer(ctx context.Context, text string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	body, _ := json.Marshal(map[string]any{"model": Model, "store": false, "stream": true, "reasoning": map[string]string{"effort": "none"}, "instructions": "你是小爱音箱的中文语音问答助手。直接回答，通常不超过100字，不使用Markdown。没有联网搜索，不能编造实时信息。不要调用工具或执行设备操作。", "input": []map[string]string{{"role": "user", "content": text}}})
+	body, _ := json.Marshal(map[string]any{"model": Model, "store": false, "stream": true, "reasoning": map[string]string{"effort": "none"}, "instructions": voiceInstructions, "input": []map[string]string{{"role": "user", "content": text}}})
 	req, _ := http.NewRequestWithContext(ctx, "POST", Resource+"/responses", bytes.NewReader(body))
 	req.Header.Set("Authorization", "Bearer "+token)
 	req.Header.Set("Content-Type", "application/json")
